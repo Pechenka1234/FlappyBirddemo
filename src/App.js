@@ -165,8 +165,7 @@ const App = () => {
   console.log("Bird top:", birdTop, "Jump Velocity:", jumpVelocity);
 
   return (
-    <Router basename="/">
-      {/* Для Vercel розгортання використовуйте: <Router basename="/flappybird-react"> */}
+    <Router basename="/flappybird-react">
       <div className={styles.app}>
         <Routes>
           <Route
