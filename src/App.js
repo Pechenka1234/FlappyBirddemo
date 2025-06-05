@@ -45,7 +45,7 @@ const App = () => {
 
   useEffect(() => {
     let animationId;
-    let hasAddedToLeaderboard = false; // Флаг, щоб уникнути повторного додавання
+    let hasAddedToLeaderboard = false;
 
     if (gameRunning) {
       animationId = setInterval(() => {
@@ -113,7 +113,7 @@ const App = () => {
 
     return () => {
       clearInterval(animationId);
-      hasAddedToLeaderboard = false; // Скидаємо флаг при очищенні
+      hasAddedToLeaderboard = false;
     };
   }, [gameRunning, pipes, birdTop, jumpVelocity, score, userName, maxScore, dispatch]);
 
@@ -165,7 +165,8 @@ const App = () => {
   console.log("Bird top:", birdTop, "Jump Velocity:", jumpVelocity);
 
   return (
-    <Router basename="/flappybird-react">
+    <Router basename="/">
+      {/* Для Vercel розгортання використовуйте: <Router basename="/flappybird-react"> */}
       <div className={styles.app}>
         <Routes>
           <Route
