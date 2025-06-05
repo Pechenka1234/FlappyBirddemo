@@ -2,7 +2,7 @@
   "name": "flappy-react",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://flappy-bird-demo-5sw.vercel.app/flappybird-react",
+  "homepage": "https://flappy-birddemo-g734.vercel.app/flappybird-react",
   "dependencies": {
     "@reduxjs/toolkit": "^2.8.2",
     "gh-pages": "^6.3.0",
