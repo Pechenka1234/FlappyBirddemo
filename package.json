@@ -2,7 +2,7 @@
   "name": "flappy-react",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://marmiz.github.io/flappybird-react",
+  "homepage": ".",
   "dependencies": {
     "@reduxjs/toolkit": "^2.8.2",
     "gh-pages": "^6.3.0",
