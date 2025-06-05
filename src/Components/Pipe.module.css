@@ -1,0 +1,16 @@
+/* src/Components/Pipe.module.css */
+
+.pipe {
+    position: absolute;
+    width: 50px;
+    background-color: #ce372b;
+    box-shadow: inset 0px 0px 4px 0px #8c2022;
+  }
+  
+  .pipe.top {
+    top: 0;
+  }
+  
+  .pipe.bottom {
+    bottom: 0;
+  }

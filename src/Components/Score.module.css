@@ -1,0 +1,10 @@
+.score {
+  background-color: rgba(211, 211, 211, 0.6);
+  color: #000;
+  font-size: 18px;
+  padding: 8px;
+  z-index: 2;
+  position: absolute;
+  bottom: 20px; /* Переміщуємо вниз */
+  left: 20px;   /* Розміщуємо зліва */
+}
