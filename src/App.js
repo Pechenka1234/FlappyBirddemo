@@ -148,7 +148,7 @@ const App = () => {
   
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [gameRunning, birdTop, jumpVelocity, userName, dispatch, jumpForce]);
+  }, [gameRunning, birdTop, jumpVelocity, userName, dispatch]);
   
 
   return (
