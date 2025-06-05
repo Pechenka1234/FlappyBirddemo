@@ -16,7 +16,7 @@ const UserForm = () => {
     console.log("Form submitted, userName:", data.userName);
     dispatch(setUserName(data.userName));
     dispatch(setGameRunning(true));
-    dispatch(resetMaxScore()); // Скидаємо maxScore після входу
+    dispatch(resetMaxScore());
   };
 
   console.log("Rendering UserForm component");

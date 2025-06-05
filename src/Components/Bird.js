@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './Bird.module.css'; // Імпорт модуля стилів
+import styles from './Bird.module.css'; 
 
 const Bird = ({ top }) => {
   console.log("Rendering Bird, top:", top);

@@ -9,7 +9,6 @@ const Controls = () => {
   console.log("Rendering Controls");
 
   const handleLogout = () => {
-    // Додаємо гравця до таблиці лідерів перед виходом
     if (userName && maxScore > 0) {
       dispatch(addToLeaderboard({ userName, maxScore }));
     }

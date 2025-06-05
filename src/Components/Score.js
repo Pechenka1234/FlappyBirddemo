@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './Score.module.css'; // Імпорт модуля стилів
+import styles from './Score.module.css';
 
 const Score = ({ score, userName }) => {
   console.log("Rendering Score, score:", score, "userName:", userName);

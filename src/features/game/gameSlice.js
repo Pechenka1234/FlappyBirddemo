@@ -8,7 +8,7 @@ const initialState = {
   jumpVelocity: 0,
   userName: '',
   maxScore: 0,
-  leaderboard: [], // Додаємо поле для зберігання результатів гравців
+  leaderboard: [], 
 };
 
 const gameSlice = createSlice({
@@ -48,11 +48,10 @@ const gameSlice = createSlice({
     },
     addToLeaderboard: (state, action) => {
       const { userName, maxScore } = action.payload;
-      // Додаємо нового гравця до таблиці лідерів
       state.leaderboard = [
         ...state.leaderboard,
         { name: userName, score: maxScore },
-      ].sort((a, b) => b.score - a.score).slice(0, 5); // Сортуємо і беремо топ-5
+      ].sort((a, b) => b.score - a.score).slice(0, 5); 
     },
   },
 });
