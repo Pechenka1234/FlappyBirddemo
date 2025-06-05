@@ -11,11 +11,7 @@
     ],
     "routes": [
       {
-        "src": "/flappybird-react",
-        "dest": "/index.html"
-      },
-      {
-        "src": "/flappybird-react/(.*)",
+        "src": "/flappybird-react(?:/.*)?",
         "dest": "/index.html"
       }
     ]
