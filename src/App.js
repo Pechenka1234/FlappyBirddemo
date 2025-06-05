@@ -111,20 +111,25 @@ const App = () => {
   useEffect(() => {
     const handleKeyDown = (e) => {
       const kc = e.keyCode;
-
+      console.log("Key pressed:", kc, "gameRunning:", gameRunning);
+  
       if (kc === 32 && gameRunning) {
+        console.log("Jump triggered, current birdTop:", birdTop, "Velocity:", jumpVelocity);
         dispatch(setJumpVelocity(jumpForce));
       }
-
+  
       if (kc === 83 && !gameRunning && userName) {
+        console.log("Starting game");
         dispatch(setGameRunning(true));
       }
-
+  
       if (kc === 80) {
+        console.log("Pausing/Resuming game");
         dispatch(setGameRunning(!gameRunning));
       }
-
+  
       if (kc === 82 && !gameRunning) {
+        console.log("Resetting game without logout");
         dispatch(setBirdTop(60));
         dispatch(setScore(0));
         dispatch(setGameRunning(false));
@@ -140,10 +145,11 @@ const App = () => {
         }, 0);
       }
     };
-
+  
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [gameRunning, birdTop, jumpVelocity, userName, dispatch]);
+  }, [gameRunning, birdTop, jumpVelocity, userName, dispatch, jumpForce]);
+  
 
   return (
     <Router basename="/flappybird-react">
