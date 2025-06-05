@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/FlappyBirddemo/static/css/main.af4c0623.css",
+    "main.js": "/FlappyBirddemo/static/js/main.3cfb7fb4.js",
+    "static/media/PressStart2P-Regular.ttf": "/FlappyBirddemo/static/media/PressStart2P-Regular.95117d5fedb975d9923f.ttf",
+    "index.html": "/FlappyBirddemo/index.html",
+    "main.af4c0623.css.map": "/FlappyBirddemo/static/css/main.af4c0623.css.map",
+    "main.3cfb7fb4.js.map": "/FlappyBirddemo/static/js/main.3cfb7fb4.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.af4c0623.css",
+    "static/js/main.3cfb7fb4.js"
+  ]
+}
