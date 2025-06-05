@@ -15,8 +15,6 @@ import {
   setScore,
   setGameRunning,
   setJumpVelocity,
-  resetGame,
-  resetMaxScore,
   addToLeaderboard,
 } from './features/game/gameSlice';
 
@@ -39,7 +37,6 @@ const App = () => {
       height: generatePipePairs(),
       scored: false,
     }));
-    console.log("Initial pipes:", initialPipes);
     dispatch(setPipes(initialPipes));
   }, [dispatch]);
 
@@ -52,11 +49,9 @@ const App = () => {
         dispatch(setBirdTop(birdTop + jumpVelocity + gravity));
         dispatch(setJumpVelocity(jumpVelocity + gravity));
 
-        console.log("Bird top updated:", birdTop, "Velocity:", jumpVelocity);
         if (birdTop + jumpVelocity + gravity >= screenHeight || birdTop + jumpVelocity + gravity <= 0) {
           dispatch(setGameRunning(false));
           dispatch(setJumpVelocity(0));
-          console.log("Game stopped, final score:", score);
           if (!hasAddedToLeaderboard && userName && maxScore > 0) {
             dispatch(addToLeaderboard({ userName, maxScore }));
             hasAddedToLeaderboard = true;
@@ -84,10 +79,8 @@ const App = () => {
           const topLimit = dangerPipe.height[1];
           const botLimit = screenHeight - dangerPipe.height[0];
           if (birdTop <= topLimit || birdTop >= botLimit) {
-            console.log("Collision detected!", { birdTop, topLimit, botLimit });
             dispatch(setGameRunning(false));
             dispatch(setJumpVelocity(0));
-            console.log("Game stopped due to collision, final score:", score);
             if (!hasAddedToLeaderboard && userName && maxScore > 0) {
               dispatch(addToLeaderboard({ userName, maxScore }));
               hasAddedToLeaderboard = true;
@@ -97,7 +90,6 @@ const App = () => {
 
         const scoredPipe = pipes.find((p) => p.x <= 0 && !p.scored);
         if (scoredPipe) {
-          console.log("Scoring pipe:", scoredPipe);
           dispatch(setScore(score + 1));
           dispatch(
             setPipes(
@@ -106,7 +98,6 @@ const App = () => {
               )
             )
           );
-          console.log("Score increased to:", score + 1);
         }
       }, 1000 / 60);
     }
@@ -115,30 +106,25 @@ const App = () => {
       clearInterval(animationId);
       hasAddedToLeaderboard = false;
     };
-  }, [gameRunning, pipes, birdTop, jumpVelocity, score, userName, maxScore, dispatch]);
+  }, [gameRunning, pipes, birdTop, jumpVelocity, score, userName, maxScore, dispatch, jumpForce]);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
       const kc = e.keyCode;
-      console.log("Key pressed:", kc, "gameRunning:", gameRunning);
 
       if (kc === 32 && gameRunning) {
-        console.log("Jump triggered, current birdTop:", birdTop, "Velocity:", jumpVelocity);
         dispatch(setJumpVelocity(jumpForce));
       }
 
       if (kc === 83 && !gameRunning && userName) {
-        console.log("Starting game");
         dispatch(setGameRunning(true));
       }
 
       if (kc === 80) {
-        console.log("Pausing/Resuming game");
         dispatch(setGameRunning(!gameRunning));
       }
 
       if (kc === 82 && !gameRunning) {
-        console.log("Resetting game without logout");
         dispatch(setBirdTop(60));
         dispatch(setScore(0));
         dispatch(setGameRunning(false));
@@ -159,11 +145,6 @@ const App = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [gameRunning, birdTop, jumpVelocity, userName, dispatch]);
 
-  console.log("Rendering App, userName:", userName);
-  console.log("Current location:", window.location.pathname);
-  console.log("Pipes in render:", pipes.map((p) => ({ id: p.id, x: p.x, height: p.height, scored: p.scored })));
-  console.log("Bird top:", birdTop, "Jump Velocity:", jumpVelocity);
-
   return (
     <Router basename="/flappybird-react">
       <div className={styles.app}>
@@ -171,69 +152,61 @@ const App = () => {
           <Route
             path="/"
             element={
-              <>
-                {console.log("Checking userName condition, userName:", userName)}
-                {!userName ? (
-                  <div>
-                    {console.log("Rendering UserForm and Leaderboard")}
-                    <UserForm />
-                    <Leaderboard />
-                  </div>
-                ) : (
-                  <div>
-                    {console.log("Rendering Game")}
-                    <Score score={score} userName={userName} />
-                    <Controls />
-                    <Bird top={birdTop} />
-                    {pipes.map((pipe) => (
-                      <Fragment key={pipe.id}>
-                        <Pipe x={pipe.x} height={pipe.height} type="top" />
-                        <Pipe x={pipe.x} height={pipe.height} type="bottom" />
-                      </Fragment>
-                    ))}
-                  </div>
-                )}
-              </>
+              !userName ? (
+                <>
+                  <UserForm />
+                  <Leaderboard />
+                </>
+              ) : (
+                <>
+                  <Score score={score} userName={userName} />
+                  <Controls />
+                  <Bird top={birdTop} />
+                  {pipes.map((pipe) => (
+                    <Fragment key={pipe.id}>
+                      <Pipe x={pipe.x} height={pipe.height} type="top" />
+                      <Pipe x={pipe.x} height={pipe.height} type="bottom" />
+                    </Fragment>
+                  ))}
+                </>
+              )
             }
           />
           <Route
             path="/flappybird-react"
             element={
-              <>
-                {console.log("Checking userName condition, userName:", userName)}
-                {!userName ? (
-                  <div>
-                    {console.log("Rendering UserForm and Leaderboard")}
-                    <UserForm />
-                    <Leaderboard />
-                  </div>
-                ) : (
-                  <div>
-                    {console.log("Rendering Game")}
-                    <Score score={score} userName={userName} />
-                    <Controls />
-                    <Bird top={birdTop} />
-                    {pipes.map((pipe) => (
-                      <Fragment key={pipe.id}>
-                        <Pipe x={pipe.x} height={pipe.height} type="top" />
-                        <Pipe x={pipe.x} height={pipe.height} type="bottom" />
-                      </Fragment>
-                    ))}
-                  </div>
-                )}
-              </>
+              !userName ? (
+                <>
+                  <UserForm />
+                  <Leaderboard />
+                </>
+              ) : (
+                <>
+                  <Score score={score} userName={userName} />
+                  <Controls />
+                  <Bird top={birdTop} />
+                  {pipes.map((pipe) => (
+                    <Fragment key={pipe.id}>
+                      <Pipe x={pipe.x} height={pipe.height} type="top" />
+                      <Pipe x={pipe.x} height={pipe.height} type="bottom" />
+                    </Fragment>
+                  ))}
+                </>
+              )
             }
           />
           <Route path="/controls" element={<Controls />} />
           <Route
             path="/pipe"
             element={
-              pipes.map((pipe) => (
-                <Fragment key={pipe.id}>
-                  <Pipe x={pipe.x} height={pipe.height} type="top" />
-                  <Pipe x={pipe.x} height={pipe.height} type="bottom" />
-                </Fragment>
-              ))
+              <>
+                {pipes.map((pipe) => (
+                  <Fragment key={pipe.id}>
+                    <Pipe x={pipe.x} height={pipe.height} type="top" />
+                    <Pipe x={pipe.x} height={pipe.height} type="bottom" />
+                  </Fragment>
+                ))}
+              </>
             }
           />
           <Route path="/score" element={<Score score={score} userName={userName} />} />
